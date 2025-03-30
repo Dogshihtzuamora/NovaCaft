@@ -2,7 +2,7 @@
 
 <img src="https://i.postimg.cc/v8hVRDgp/d86ef9a30c3683dfca1de84e9f4f575b.jpg">
 
-<i> NovaCaft <i> e um jogo inspirado em mine criado em 2026
+<i> NovaCaft <i> e um jogo inspirado em mine criado em 
 2025 
 
 <br>
@@ -12,4 +12,6 @@ somos uma equipe brasileira criada em 2025 com o objetivo de criar um mine com a
   
  </p>
 
- 
+ <p>😖 nosso jogo e open soure vc pode usar para estudar,modificar ele</p
+
+ <p>😻 by  teamNovaCaft </p>
