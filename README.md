@@ -1,6 +1,6 @@
 # NovaCaft
 
-<img src="https://i.postimg.cc/v8hVRDgp/d86ef9a30c3683dfca1de84e9f4f575b.jpg">
+<img src="https://i.postimg.cc/fRRD4Sf3/Picsart-25-03-31-19-22-32-951.jpg">
 
 <i> NovaCaft <i> e um jogo inspirado em mine criado em 
 2025 
