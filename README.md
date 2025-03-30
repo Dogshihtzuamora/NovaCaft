@@ -2,7 +2,7 @@
 
 <img src="https://i.postimg.cc/v8hVRDgp/d86ef9a30c3683dfca1de84e9f4f575b.jpg">
 
-<i> NovaCaft <i> e uma fã game de mine criada em 
+<i> NovaCaft <i> e um jogo inspirado em mine criado em 2026
 2025 
 
 <br>
