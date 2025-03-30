@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Block World</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+        }
+        canvas { display: block; }
+        #menu {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+        #playButton {
+            padding: 15px 50px;
+            font-size: 24px;
+            background-color: #808080;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px #555;
+            transition: all 0.1s;
+        }
+        #playButton:hover {
+            background-color: #6f6f6f;
+        }
+        #playButton:active {
+            box-shadow: 0 2px #555;
+            transform: translateY(2px);
+        }
+    </style>
+</head>
+<body>
+    <div id="menu">
+        <button id="playButton">PLAY</button>
+    </div>
+    <script>
+        document.getElementById('playButton').addEventListener('click', function() {
+            window.location.href = 'world.html';
+        });
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    scene.background = new THREE.Color(0x0000FF); 
+
+   
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshBasicMaterial({ color: 0x8B4513 });
+    
+    function createBlock(x, y, z) {
+        const block = new THREE.Mesh(geometry, material);
+        block.position.set(x, y, z);
+        scene.add(block);
+    }
+
+    function generateTerrain(width, depth) {
+        for (let x = -width / 2; x < width / 2; x++) {
+            for (let z = -depth / 2; z < depth / 2; z++) {
+                let height = Math.floor(Math.random() * 3); 
+                for (let y = -1; y >= -height; y--) {
+                    createBlock(x, y, z);
+                }
+            }
+        }
+    }
+
+    generateTerrain(10, 10);
+
+    camera.position.set(0, 2, 5);
+    camera.lookAt(0, 0, 0);
+
+    function animate() {
+        requestAnimationFrame(animate);
+        camera.position.x = Math.sin(Date.now() * 0.001) * 5;
+        camera.position.z = Math.cos(Date.now() * 0.001) * 5;
+        camera.lookAt(0, 0, 0);
+        renderer.render(scene, camera);
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+    });
+</script>
+
+</body>
+</html>
