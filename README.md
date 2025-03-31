@@ -1,4 +1,4 @@
-é# NovaCaft
+# NovaCaft
 
 <img src="https://i.postimg.cc/fRRD4Sf3/Picsart-25-03-31-19-22-32-951.jpg">
 
