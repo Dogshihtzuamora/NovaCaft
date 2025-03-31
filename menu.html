@@ -71,6 +71,14 @@
             font-size: 12px;
             color: #aaa;
         }
+        #ops{
+          display: none;
+
+          text-align: center;
+        }
+        #ops a{
+          text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -83,8 +91,27 @@
         </div>
         <div id="version">Versão tester 1.1</div>
     </div>
+    
+    <div id="ops">
+      <h1>wordcraft</h1>
+      <p> versão tester 1.1.2</p>
+      <p> licença mit</p>
+      <a href="https://github.com/Dogshihtzuamora/NovaCaft"> github</a>
+      
+      <h2> créditos </h2>
+      <p> </p>
+      <p> música by the games</p>
+      <p> progamacão
+      <br>
+     by void, Ravy, erick campos
+      </p>
+      
+<button id="exitops"> voltar</button>
+    </div>
     <script>
-
+    const menudiv = document.getElementById('menu')
+    const opsdiv = document.getElementById("ops")
+    const exitops = document.getElementById("exitops")
 document.addEventListener('DOMContentLoaded', () => {
     const audio = new Audio('/music/menumusic.m4a');
     audio.loop = true;
@@ -102,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
     playAudio(); 
 });
 
-        
+
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -215,9 +242,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         document.getElementById('optionsButton').addEventListener('click', function() {
-            alert('Opções serão implementadas em breve!');
+          menudiv.style.display = "none"
+          opsdiv.style.display = "block"
+
         });
-        
+        exitops.addEventListener("click", function sair(){
+          menudiv.style.display = "block"
+          opsdiv.style.display = "none"
+
+        })
         document.getElementById('quitButton').addEventListener('click', function() {
             if (confirm('Deseja realmente sair do jogo?')) {
                 window.close();
@@ -225,4 +258,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     </script>
 </body>
-</html>
+    </html>
