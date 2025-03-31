@@ -15,3 +15,8 @@ somos uma equipe brasileira criada em 2025 com o objetivo de criar um mine com a
  <p>😖 nosso jogo e open soure vc pode usar para estudar,modificar ele</p
 
  <p>😻 by  teamNovaCaft </p>
+<br>
+<br>
+
+<i>versão
+ tester 1.1</i>
