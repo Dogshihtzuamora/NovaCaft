@@ -1,4 +1,4 @@
-# NovaCaft
+é# NovaCaft
 
 <img src="https://i.postimg.cc/fRRD4Sf3/Picsart-25-03-31-19-22-32-951.jpg">
 
@@ -19,4 +19,4 @@ somos uma equipe brasileira criada em 2025 com o objetivo de criar um mine com a
 <br>
 
 <i>versão
- tester 1.1</i>
+ tester 1.1 1</i>
