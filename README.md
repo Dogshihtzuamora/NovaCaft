@@ -20,3 +20,5 @@ somos uma equipe brasileira criada em 2025 com o objetivo de criar um mine com a
 
 <i>versão
  tester 1.1 2</i>
+
+<a href="https://github.com/Dogshihtzuamora/NovaCaft/wiki"> wiki </a>
