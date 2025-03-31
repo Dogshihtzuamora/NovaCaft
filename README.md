@@ -19,4 +19,4 @@ somos uma equipe brasileira criada em 2025 com o objetivo de criar um mine com a
 <br>
 
 <i>versão
- tester 1.1 1</i>
+ tester 1.1 2</i>
