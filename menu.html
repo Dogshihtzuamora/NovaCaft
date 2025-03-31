@@ -1,18 +1,21 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NovaCaft</title>
+    <title>NovaCraft</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         body {
             margin: 0;
             overflow: hidden;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             background-color: #1a1a1a;
             color: white;
         }
-        canvas { display: block; }
+        canvas { 
+            display: block; 
+        }
         #menu {
             position: absolute;
             width: 100%;
@@ -21,87 +24,186 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.3);
             z-index: 10;
         }
-        #playButton {
+        #title {
+            font-size: 72px;
+            margin-bottom: 40px;
+            text-shadow: 4px 4px 0px #2d2d2d, 8px 8px 0px #1a1a1a;
+            color: #4CAF50;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .menu-button {
             padding: 15px 50px;
+            margin: 10px;
             font-size: 24px;
-            background-color: #808080;
+            background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            box-shadow: 0 4px #555;
+            box-shadow: 0 6px #2E7D32;
             transition: all 0.1s;
+            min-width: 200px;
+            text-align: center;
+            font-weight: bold;
         }
-        #playButton:hover {
-            background-color: #6f6f6f;
+        .menu-button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 8px #2E7D32;
         }
-        #playButton:active {
-            box-shadow: 0 2px #555;
-            transform: translateY(2px);
+        .menu-button:active {
+            box-shadow: 0 2px #2E7D32;
+            transform: translateY(4px);
+        }
+        #button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #version {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
+            color: #aaa;
         }
     </style>
 </head>
 <body>
     <div id="menu">
-        <button id="playButton">PLAY</button>
+        <h1 id="title">NOVACRAFT</h1>
+        <div id="button-container">
+            <button class="menu-button" id="playButton">JOGAR</button>
+            <button class="menu-button" id="optionsButton">OPÇÕES</button>
+            <button class="menu-button" id="quitButton">SAIR</button>
+        </div>
+        <div id="version">Versão tester 1.1</div>
     </div>
     <script>
-        document.getElementById('playButton').addEventListener('click', function() {
-            window.location.href = 'world.html';
-        });
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        document.body.appendChild(renderer.domElement);
 
-    scene.background = new THREE.Color(0x0000FF); 
+        const ambientLight = new THREE.AmbientLight(0xcccccc, 0.4);
+        scene.add(ambientLight);
+        
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(1, 1, 1);
+        scene.add(directionalLight);
 
-   
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({ color: 0x8B4513 });
-    
-    function createBlock(x, y, z) {
-        const block = new THREE.Mesh(geometry, material);
-        block.position.set(x, y, z);
-        scene.add(block);
-    }
+        const grassMaterial = new THREE.MeshLambertMaterial({ color: 0x4CAF50 });
+        const dirtMaterial = new THREE.MeshLambertMaterial({ color: 0x8B4513 });
+        const stoneMaterial = new THREE.MeshLambertMaterial({ color: 0x808080 });
+        const woodMaterial = new THREE.MeshLambertMaterial({ color: 0x8B4513 });
+        const leafMaterial = new THREE.MeshLambertMaterial({ color: 0x2E7D32 });
 
-    function generateTerrain(width, depth) {
-        for (let x = -width / 2; x < width / 2; x++) {
-            for (let z = -depth / 2; z < depth / 2; z++) {
-                let height = Math.floor(Math.random() * 3); 
-                for (let y = -1; y >= -height; y--) {
-                    createBlock(x, y, z);
+        function createBlock(x, y, z, material) {
+            const geometry = new THREE.BoxGeometry(1, 1, 1);
+            const block = new THREE.Mesh(geometry, material);
+            block.position.set(x, y, z);
+            scene.add(block);
+            return block;
+        }
+
+        function generateTerrain(width, depth) {
+            for (let x = -width/2; x < width/2; x++) {
+                for (let z = -depth/2; z < depth/2; z++) {
+                    createBlock(x, 0, z, grassMaterial);
+                    
+                    const dirtLayers = Math.floor(Math.random() * 3) + 3;
+                    for (let y = -1; y >= -dirtLayers; y--) {
+                        createBlock(x, y, z, dirtMaterial);
+                    }
+                    
+                    for (let y = -dirtLayers-1; y >= -10; y--) {
+                        createBlock(x, y, z, stoneMaterial);
+                    }
+                }
+            }
+            
+            for (let i = 0; i < 5; i++) {
+                const treeX = Math.floor(Math.random() * width - width/2);
+                const treeZ = Math.floor(Math.random() * depth - depth/2);
+                
+                const trunkHeight = Math.floor(Math.random() * 3) + 3;
+                for (let y = 1; y <= trunkHeight; y++) {
+                    createBlock(treeX, y, treeZ, woodMaterial);
+                }
+                
+                for (let lx = -2; lx <= 2; lx++) {
+                    for (let lz = -2; lz <= 2; lz++) {
+                        for (let ly = trunkHeight-1; ly <= trunkHeight+2; ly++) {
+                            if (Math.random() > 0.3 || 
+                                (Math.abs(lx) === 2 && Math.abs(lz) === 2)) continue;
+                            
+                            createBlock(treeX + lx, ly, treeZ + lz, leafMaterial);
+                        }
+                    }
+                }
+            }
+            
+            // Nuvens
+            for (let i = 0; i < 4; i++) {
+                const cloudX = Math.random() * width - width/2;
+                const cloudZ = Math.random() * depth - depth/2;
+                const cloudY = 10 + Math.random() * 5;
+                
+                const cloudSize = Math.floor(Math.random() * 3) + 3;
+                for (let cx = 0; cx < cloudSize; cx++) {
+                    for (let cz = 0; cz < cloudSize; cz++) {
+                        if (Math.random() > 0.6) {
+                            createBlock(cloudX + cx, cloudY, cloudZ + cz, new THREE.MeshLambertMaterial({ color: 0xffffff }));
+                        }
+                    }
                 }
             }
         }
-    }
 
-    generateTerrain(10, 10);
+        generateTerrain(20, 20);
 
-    camera.position.set(0, 2, 5);
-    camera.lookAt(0, 0, 0);
-
-    function animate() {
-        requestAnimationFrame(animate);
-        camera.position.x = Math.sin(Date.now() * 0.001) * 5;
-        camera.position.z = Math.cos(Date.now() * 0.001) * 5;
+        camera.position.set(0, 5, 15);
         camera.lookAt(0, 0, 0);
-        renderer.render(scene, camera);
-    }
 
-    animate();
+        let time = 0;
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            time += 0.005;
+            camera.position.x = Math.sin(time) * 15;
+            camera.position.z = Math.cos(time) * 15;
+            camera.lookAt(0, 5, 0);
+            
+            renderer.render(scene, camera);
+        }
 
-    window.addEventListener('resize', () => {
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-    });
-</script>
+        animate();
 
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        });
+
+        document.getElementById('playButton').addEventListener('click', function() {
+            window.location.href = 'world.html';
+        });
+        
+        document.getElementById('optionsButton').addEventListener('click', function() {
+            alert('Opções serão implementadas em breve!');
+        });
+        
+        document.getElementById('quitButton').addEventListener('click', function() {
+            if (confirm('Deseja realmente sair do jogo?')) {
+                window.close();
+            }
+        });
+    </script>
 </body>
 </html>
